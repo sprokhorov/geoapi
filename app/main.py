@@ -16,7 +16,12 @@ def fetch_record_by_ip(ip_address):
         return dict(error="Can't find this ip address")
     gi_record['ip'] = ip_address
     gi_record['ip_range'] = "{0} - {1}".format(gi_range[0], gi_range[1])
-    gi_record['cidr'] = str(iprange_to_cidrs(gi_range[0], gi_range[1]))
+
+    cidr_str = ""
+    for cidr in iprange_to_cidrs(gi_range[0], gi_range[1]):
+        cidr_str += str(cidr) + " "
+        
+    gi_record['cidr'] = cidr_str
     return gi_record
 
 

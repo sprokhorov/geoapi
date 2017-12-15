@@ -2,6 +2,7 @@ from flask import Flask
 from flask import request
 import GeoIP
 import json
+from netaddr import iprange_to_cidrs
 
 
 app = Flask(__name__)
@@ -15,6 +16,7 @@ def fetch_record_by_ip(ip_address):
         return dict(error="Can't find this ip address")
     gi_record['ip'] = ip_address
     gi_record['ip_range'] = "{0} - {1}".format(gi_range[0], gi_range[1])
+    gi_record['cidr'] = str(iprange_to_cidrs(gi_range[0], gi_range[1]))
     return gi_record
 
 
